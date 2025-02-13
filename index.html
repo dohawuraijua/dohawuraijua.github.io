@@ -28,5 +28,13 @@
 <body>
   <div id="root"></div>
 </body>
-
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('p') !== 'g') {
+    document.body.innerHTML = '';
+  }
+  if(!params.get('p')) {
+    document.body.innerHTML = '';
+  }
+</script>
 </html>
