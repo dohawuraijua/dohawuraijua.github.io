@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pajak Daerah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+        }
+
+        .payment-card {
+            transition: all 0.3s ease;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <div class="max-w-md mx-auto bg-white min-h-screen shadow-lg">
+        <!-- Header -->
+        <header class="bg-blue-600 text-white p-4 rounded-b-3xl shadow-md">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl font-bold">Bayar All</h1>
+                    <p class="text-sm opacity-80">Simpel Pembayaran</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                    </div>
+                    <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="mt-6 bg-gradient-to-r from-blue-700 to-blue-900 p-4 rounded-xl shadow-lg">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-sm opacity-80">Tagihan Anda</p>
+                        <h2 class="text-2xl font-bold">Rp 2,500,000</h2>
+                    </div>
+                    <div class="bg-white/20 p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <button class="bg-white/20 text-white text-sm py-1 px-3 rounded-full flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                        Bayar Tagihan
+                    </button>
+                  
+                    <button class="bg-white/20 text-white text-sm py-1 px-3 rounded-full flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        Riwayat
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-4">
+            <h2 class="text-lg font-semibold text-gray-800 mb-3">Layanan Pembayaran</h2>
+
+            <!-- Payment Options -->
+            <div class="grid grid-cols-3 gap-3 mb-6">
+                <div class="payment-card bg-gradient-to-br from-green-50 to-green-100 p-3 rounded-xl shadow-sm border border-green-200 text-center cursor-pointer"
+                    id="vehicle-tax-btn">
+                    <div
+                        class="bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Pajak Kendaraan</p>
+                </div>
+
+                <div class="payment-card bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-xl shadow-sm border border-blue-200 text-center cursor-pointer"
+                    id="retribution-btn">
+                    <div
+                        class="bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Retribusi Daerah</p>
+                </div>
+
+                <div class="payment-card bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-xl shadow-sm border border-purple-200 text-center cursor-pointer"
+                    id="assets-btn">
+                    <div
+                        class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Aset Daerah</p>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100">
+                <!-- Tab Navigation -->
+                <div class="flex border-b border-gray-200 mb-4">
+                    <button class="tab-btn flex-1 py-2 font-medium text-blue-600 border-b-2 border-blue-600"
+                        data-tab="vehicle-tax">Pajak Kendaraan</button>
+                    <button class="tab-btn flex-1 py-2 font-medium text-gray-500"
+                        data-tab="retribution">Retribusi</button>
+                    <button class="tab-btn flex-1 py-2 font-medium text-gray-500" data-tab="assets">Aset</button>
+                </div>
+
+                <!-- Vehicle Tax Tab -->
+                <div id="vehicle-tax" class="tab-content active">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Polisi</label>
+                        <input type="text"
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Cth: AB 1234 CD">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">5 Digit Terakhir Nomor Rangka</label>
+                        <input type="text"
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Nomor Rangka">
+                    </div>
+
+                    <button
+                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200"
+                        id="check-tax-btn">Cek Pajak</button>
+                </div>
+
+                <!-- Retribution Tab -->
+                <div id="retribution" class="tab-content">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipe Retribusi</label>
+                        <select
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Rumah Dinas</option>
+                            <option>Ruko</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Registrasi</label>
+                        <input type="text"
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Enter registration number">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Periode</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="month"
+                                class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            
+                        </div>
+                    </div>
+
+                    <button
+                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200">Cek Tagihan</button>
+                </div>
+
+                <!-- Assets Tab -->
+                <div id="assets" class="tab-content">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipe Aset</label>
+                        <select
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Tanah</option>
+                            <option>Bangunan</option>
+                            <option>Kendaraan</option>
+                            <option>Peralatan</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Registrasi</label>
+                        <input type="text"
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Nomor Registrasi">
+                    </div>
+
+                    <button
+                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200">Cek Tagihan</button>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Transaksi Terakhir</h3>
+                <div class="space-y-3">
+                    <div
+                        class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-2 rounded-lg mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">Pajak Kendaraan</p>
+                                <p class="text-xs text-gray-500">May 15, 2024</p>
+                            </div>
+                        </div>
+                        <p class="font-medium text-gray-800">Rp 750,000</p>
+                    </div>
+
+                    <div
+                        class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-lg mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">Sewa Ruko</p>
+                                <p class="text-xs text-gray-500">May 10, 2024</p>
+                            </div>
+                        </div>
+                        <p class="font-medium text-gray-800">Rp 250,000</p>
+                    </div>
+
+                    <div
+                        class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 p-2 rounded-lg mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">Sewa Aset Tanah</p>
+                                <p class="text-xs text-gray-500">April 28, 2024</p>
+                            </div>
+                        </div>
+                        <p class="font-medium text-gray-800">Rp 1,200,000</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav
+            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 flex justify-around p-2">
+            <button class="flex flex-col items-center py-1 px-3 text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="text-xs mt-1">Home</span>
+            </button>
+
+            <button class="flex flex-col items-center py-1 px-3 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                </svg>
+                <span class="text-xs mt-1">Riwayat</span>
+            </button>
+
+            <button class="flex flex-col items-center py-1 px-3 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 2a10 10 0 100 20 10 10 0 000-20zm3.5 6.5l-2 5-5 2 2-5 5-2z" />
+                </svg>
+                <span class="text-xs mt-1">Explore</span>
+            </button>
+            
+
+            <button class="flex flex-col items-center py-1 px-3 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span class="text-xs mt-1">Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Tax Result Modal -->
+    <div id="tax-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-5 w-11/12 max-w-md mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-800">Tax Payment Details</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Vehicle Registration:</span>
+                    <span class="font-medium text-gray-800">AB 1234 CD</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Vehicle Type:</span>
+                    <span class="font-medium text-gray-800">Car</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Tax Period:</span>
+                    <span class="font-medium text-gray-800">2023</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Due Date:</span>
+                    <span class="font-medium text-gray-800">June 30, 2023</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold">
+                    <span class="text-gray-800">Total Amount:</span>
+                    <span class="text-blue-600">Rp 1,250,000</span>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+                <select
+                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>Wallet Balance</option>
+                    <option>Bank Transfer</option>
+                    <option>Credit/Debit Card</option>
+                </select>
+            </div>
+
+            <div class="flex space-x-3">
+                <button
+                    class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition duration-200">Save</button>
+                <button
+                    class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200">Pay
+                    Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600'));
+                tabBtns.forEach(b => b.classList.add('text-gray-500'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+                btn.classList.remove('text-gray-500');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Payment card buttons
+        document.getElementById('vehicle-tax-btn').addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600'));
+            tabBtns.forEach(b => b.classList.add('text-gray-500'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            document.querySelector('[data-tab="vehicle-tax"]').classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+            document.querySelector('[data-tab="vehicle-tax"]').classList.remove('text-gray-500');
+            document.getElementById('vehicle-tax').classList.add('active');
+        });
+
+        document.getElementById('retribution-btn').addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600'));
+            tabBtns.forEach(b => b.classList.add('text-gray-500'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            document.querySelector('[data-tab="retribution"]').classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+            document.querySelector('[data-tab="retribution"]').classList.remove('text-gray-500');
+            document.getElementById('retribution').classList.add('active');
+        });
+
+        document.getElementById('assets-btn').addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600'));
+            tabBtns.forEach(b => b.classList.add('text-gray-500'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            document.querySelector('[data-tab="assets"]').classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+            document.querySelector('[data-tab="assets"]').classList.remove('text-gray-500');
+            document.getElementById('assets').classList.add('active');
+        });
+
+        // Modal functionality
+        const taxModal = document.getElementById('tax-modal');
+        const checkTaxBtn = document.getElementById('check-tax-btn');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        checkTaxBtn.addEventListener('click', () => {
+            taxModal.classList.remove('hidden');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            taxModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === taxModal) {
+                taxModal.classList.add('hidden');
+            }
+        });
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9461869ea631dfe3',t:'MTc0ODMwNzEwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
