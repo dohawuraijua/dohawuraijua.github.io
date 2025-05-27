@@ -38,12 +38,26 @@
                 opacity: 1;
             }
         }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .category-btn.active {
+            background-color: #4f46e5;
+            color: white;
+        }
     </style>
 </head>
 
 <body class="min-h-screen">
+   
     <div class="max-w-md mx-auto bg-white min-h-screen shadow-lg">
         <!-- Header -->
+        <div id="mainapp">
         <header class="bg-blue-600 text-white p-4 rounded-b-3xl shadow-md">
             <div class="flex items-center justify-between">
                 <div>
@@ -297,11 +311,81 @@
                 </div>
             </div>
         </main>
+    </div>
+        <div id="explore">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-grow">
+                        <div class="relative">
+                            <input type="text" placeholder="Cari produk..."
+                                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <button class="absolute right-2 top-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <select
+                            class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option>Urutkan</option>
+                            <option>Harga Terendah</option>
+                            <option>Harga Tertinggi</option>
+                            <option>Terbaru</option>
+                            <option>Terpopuler</option>
+                        </select>
+                    </div>
+                </div>  </div>
 
+                <div class="container mx-auto px-4 py-4">
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button
+                            class="category-btn active px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-medium hover:bg-indigo-600 hover:text-white transition-all"
+                            data-category="all">Semua</button>
+                        <button
+                            class="category-btn px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-medium hover:bg-indigo-600 hover:text-white transition-all"
+                            data-category="peternakan">Peternakan</button>
+                        <button
+                            class="category-btn px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-medium hover:bg-indigo-600 hover:text-white transition-all"
+                            data-category="pertanian">Pertanian</button>
+                        <button
+                            class="category-btn px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-medium hover:bg-indigo-600 hover:text-white transition-all"
+                            data-category="umkm">UMKM</button>
+                        <button
+                            class="category-btn px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-medium hover:bg-indigo-600 hover:text-white transition-all"
+                            data-category="ruko">Ruko</button>
+                        <button
+                            class="category-btn px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-medium hover:bg-indigo-600 hover:text-white transition-all"
+                            data-category="rumah-dinas">Rumah Dinas</button>
+                    </div>
+                </div>
+                
+                <!-- Products -->
+                <div class="container mx-auto px-4 py-8">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800">Produk Terbaru</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6" id="products-container">
+                        <!-- Products will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <!-- Product Detail Modal -->
+                <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                        <div class="p-6" id="modal-content">
+                            <!-- Modal content will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+
+        </div>
         <!-- Bottom Navigation -->
         <nav
             class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 flex justify-around p-2">
-            <button class="flex flex-col items-center py-1 px-3 text-blue-600">
+            <button class="flex flex-col items-center py-1 px-3 text-blue-600" id="home-screen">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -319,7 +403,7 @@
                 <span class="text-xs mt-1">Riwayat</span>
             </button>
 
-            <button class="flex flex-col items-center py-1 px-3 text-gray-500">
+            <button class="flex flex-col items-center py-1 px-3 text-gray-500" id="explore-screen">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 2a10 10 0 100 20 10 10 0 000-20zm3.5 6.5l-2 5-5 2 2-5 5-2z" />
@@ -401,6 +485,27 @@
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
 
+        const homeScreen = document.getElementById('home-screen');
+        const exploreScreen = document.getElementById('explore-screen');
+        const mainapp = document.getElementById('mainapp');
+        const explore = document.getElementById('explore');
+
+            homeScreen.addEventListener('click', function () {
+                explore.classList.add('hidden');
+                mainapp.classList.remove('hidden');
+            });
+            exploreScreen.addEventListener('click', function () {
+                explore.classList.remove('hidden');
+                mainapp.classList.add('hidden');
+            });
+
+            function resetScreens() {
+                explore.classList.add('hidden');
+                mainapp.classList.remove('hidden');
+                }
+
+                resetScreens();
+
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 // Remove active class from all buttons and contents
@@ -467,6 +572,353 @@
             }
         });
     </script>
+
+
+<script>
+    // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: "Kandang Ayam Modern",
+                price: 250000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#f3e8d6"/>
+                    <rect x="10" y="60" width="80" height="30" fill="#8B4513"/>
+                    <rect x="15" y="40" width="70" height="20" fill="#CD853F"/>
+                    <rect x="20" y="45" width="10" height="15" fill="none" stroke="#000" stroke-width="2"/>
+                    <rect x="45" y="45" width="10" height="15" fill="none" stroke="#000" stroke-width="2"/>
+                    <rect x="70" y="45" width="10" height="15" fill="none" stroke="#000" stroke-width="2"/>
+                    <path d="M10 60 L50 30 L90 60" fill="#A52A2A" stroke="#8B4513" stroke-width="2"/>
+                    <circle cx="30" cy="75" r="3" fill="#FFFF00"/>
+                    <circle cx="50" cy="75" r="3" fill="#FFFF00"/>
+                    <circle cx="70" cy="75" r="3" fill="#FFFF00"/>
+                </svg>`,
+                category: "peternakan",
+                description: "Kandang ayam modern dengan sistem otomatis untuk pemberian pakan dan air minum. Dilengkapi dengan ventilasi yang baik dan mudah dibersihkan.",
+                features: ["Kapasitas 100 ekor", "Sistem pemberian pakan otomatis", "Ventilasi optimal", "Mudah dibersihkan", "Tahan lama"],
+                stock: 15
+            },
+            {
+                id: 2,
+                name: "Bibit Padi Unggul",
+                price: 75000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#e6f7e9"/>
+                    <rect x="20" y="70" width="60" height="20" fill="#8B4513"/>
+                    <path d="M30 70 C30 40, 30 30, 50 20 C70 30, 70 40, 70 70" fill="#76c476" stroke="#4CAF50" stroke-width="1"/>
+                    <path d="M35 70 C35 45, 35 35, 50 25 C65 35, 65 45, 65 70" fill="#4CAF50" stroke="#2E7D32" stroke-width="1"/>
+                    <path d="M40 70 C40 50, 40 40, 50 30 C60 40, 60 50, 60 70" fill="#2E7D32" stroke="#1B5E20" stroke-width="1"/>
+                    <circle cx="50" cy="30" r="5" fill="#FFC107"/>
+                    <circle cx="40" cy="40" r="3" fill="#FFC107"/>
+                    <circle cx="60" cy="40" r="3" fill="#FFC107"/>
+                </svg>`,
+                category: "pertanian",
+                description: "Bibit padi unggul dengan hasil panen yang melimpah. Tahan terhadap hama dan penyakit umum. Cocok untuk berbagai jenis tanah.",
+                features: ["Hasil panen tinggi", "Tahan hama", "Umur panen pendek", "Butir beras berkualitas", "Cocok untuk segala musim"],
+                stock: 100
+            },
+            {
+                id: 3,
+                name: "Kerajinan Anyaman Bambu",
+                price: 150000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#f9f5eb"/>
+                    <path d="M30 30 C40 20, 60 20, 70 30 C80 40, 80 60, 70 70 C60 80, 40 80, 30 70 C20 60, 20 40, 30 30" fill="#D2B48C" stroke="#8B4513" stroke-width="2"/>
+                    <path d="M30 30 L70 70" stroke="#8B4513" stroke-width="1"/>
+                    <path d="M70 30 L30 70" stroke="#8B4513" stroke-width="1"/>
+                    <path d="M50 20 L50 80" stroke="#8B4513" stroke-width="1"/>
+                    <path d="M20 50 L80 50" stroke="#8B4513" stroke-width="1"/>
+                    <path d="M35 25 C45 35, 55 35, 65 25" stroke="#8B4513" stroke-width="1" fill="none"/>
+                    <path d="M35 75 C45 65, 55 65, 65 75" stroke="#8B4513" stroke-width="1" fill="none"/>
+                </svg>`,
+                category: "umkm",
+                description: "Kerajinan anyaman bambu berkualitas tinggi, dibuat oleh pengrajin lokal berpengalaman. Cocok untuk dekorasi rumah atau souvenir.",
+                features: ["Handmade", "Bahan alami", "Ramah lingkungan", "Desain unik", "Tahan lama"],
+                stock: 25
+            },
+            {
+                id: 4,
+                name: "Ruko 2 Lantai Strategis",
+                price: 150000000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#e6f3ff"/>
+                    <rect x="20" y="30" width="60" height="50" fill="#E0E0E0" stroke="#757575" stroke-width="2"/>
+                    <rect x="30" y="40" width="15" height="15" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="55" y="40" width="15" height="15" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="30" y="60" width="15" height="20" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="55" y="60" width="15" height="20" fill="#FFFFFF" stroke="#757575" stroke-width="1"/>
+                    <path d="M20 30 L50 15 L80 30" fill="#F44336" stroke="#B71C1C" stroke-width="2"/>
+                    <rect x="45" y="70" width="10" height="10" fill="#795548"/>
+                </svg>`,
+                category: "ruko",
+                description: "Ruko 2 lantai dengan lokasi strategis di pusat kota. Cocok untuk berbagai jenis usaha. Akses mudah dan visibilitas tinggi.",
+                features: ["Luas bangunan 150m²", "Luas tanah 100m²", "2 lantai", "Listrik 3500 watt", "Parkir luas", "Sertifikat SHM"],
+                stock: 3
+            },
+            {
+                id: 5,
+                name: "Rumah Dinas Type 45",
+                price: 500000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#e8f5e9"/>
+                    <rect x="25" y="40" width="50" height="40" fill="#EEEEEE" stroke="#757575" stroke-width="2"/>
+                    <path d="M20 40 L50 20 L80 40" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
+                    <rect x="35" y="50" width="10" height="10" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="55" y="50" width="10" height="10" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="45" y="60" width="10" height="20" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+                    <rect x="20" y="80" width="60" height="5" fill="#8D6E63"/>
+                    <path d="M30 40 L30 35 L35 35 L35 40" fill="#F44336" stroke="#B71C1C" stroke-width="1"/>
+                </svg>`,
+                category: "rumah-dinas",
+                description: "Rumah dinas type 45 dengan desain modern dan fungsional. Dilengkapi dengan berbagai fasilitas untuk kenyamanan penghuni.",
+                features: ["Luas bangunan 45m²", "2 kamar tidur", "1 kamar mandi", "Ruang tamu", "Dapur", "Carport"],
+                stock: 5
+            },
+            {
+                id: 6,
+                name: "Mesin Perah Susu",
+                price: 850000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#f0f4f8"/>
+                    <rect x="30" y="30" width="40" height="50" rx="5" fill="#EEEEEE" stroke="#757575" stroke-width="2"/>
+                    <circle cx="50" cy="40" r="5" fill="#F44336" stroke="#B71C1C" stroke-width="1"/>
+                    <rect x="40" y="50" width="20" height="10" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <path d="M45 60 L45 70 L40 75" fill="none" stroke="#757575" stroke-width="2"/>
+                    <path d="M55 60 L55 70 L60 75" fill="none" stroke="#757575" stroke-width="2"/>
+                    <circle cx="40" cy="75" r="5" fill="#FFFFFF" stroke="#757575" stroke-width="1"/>
+                    <circle cx="60" cy="75" r="5" fill="#FFFFFF" stroke="#757575" stroke-width="1"/>
+                </svg>`,
+                category: "peternakan",
+                description: "Mesin perah susu modern dengan teknologi terbaru. Efisien dan higienis untuk hasil susu berkualitas tinggi.",
+                features: ["Kapasitas 20 liter", "Daya 500 watt", "Material food grade", "Mudah dibersihkan", "Hemat energi"],
+                stock: 8
+            },
+            {
+                id: 7,
+                name: "Traktor Mini",
+                price: 3500000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#fff9c4"/>
+                    <rect x="20" y="50" width="40" height="20" fill="#F44336" stroke="#B71C1C" stroke-width="2"/>
+                    <rect x="60" y="40" width="20" height="30" fill="#F44336" stroke="#B71C1C" stroke-width="2"/>
+                    <circle cx="30" cy="70" r="10" fill="#212121" stroke="#000000" stroke-width="2"/>
+                    <circle cx="70" cy="70" r="10" fill="#212121" stroke="#000000" stroke-width="2"/>
+                    <rect x="65" y="30" width="10" height="10" fill="#EEEEEE" stroke="#757575" stroke-width="1"/>
+                    <path d="M60 50 L50 40 L40 40 L40 50" fill="#F44336" stroke="#B71C1C" stroke-width="1"/>
+                </svg>`,
+                category: "pertanian",
+                description: "Traktor mini yang cocok untuk lahan pertanian kecil hingga menengah. Hemat bahan bakar dan mudah dioperasikan.",
+                features: ["Mesin 15 HP", "Hemat BBM", "Multifungsi", "Suku cadang tersedia", "Garansi 1 tahun"],
+                stock: 4
+            },
+            {
+                id: 8,
+                name: "Batik Tulis Premium",
+                price: 1200000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#fff8e1"/>
+                    <path d="M20 20 C30 30, 40 10, 50 20 C60 30, 70 10, 80 20 L80 80 C70 70, 60 90, 50 80 C40 70, 30 90, 20 80 Z" fill="#A1887F" stroke="#5D4037" stroke-width="1"/>
+                    <circle cx="30" cy="30" r="3" fill="#4E342E"/>
+                    <circle cx="50" cy="30" r="3" fill="#4E342E"/>
+                    <circle cx="70" cy="30" r="3" fill="#4E342E"/>
+                    <circle cx="30" cy="50" r="3" fill="#4E342E"/>
+                    <circle cx="50" cy="50" r="3" fill="#4E342E"/>
+                    <circle cx="70" cy="50" r="3" fill="#4E342E"/>
+                    <circle cx="30" cy="70" r="3" fill="#4E342E"/>
+                    <circle cx="50" cy="70" r="3" fill="#4E342E"/>
+                    <circle cx="70" cy="70" r="3" fill="#4E342E"/>
+                    <path d="M25 25 C35 35, 45 15, 55 25" fill="none" stroke="#4E342E" stroke-width="1"/>
+                    <path d="M45 25 C55 35, 65 15, 75 25" fill="none" stroke="#4E342E" stroke-width="1"/>
+                    <path d="M25 45 C35 55, 45 35, 55 45" fill="none" stroke="#4E342E" stroke-width="1"/>
+                    <path d="M45 45 C55 55, 65 35, 75 45" fill="none" stroke="#4E342E" stroke-width="1"/>
+                    <path d="M25 65 C35 75, 45 55, 55 65" fill="none" stroke="#4E342E" stroke-width="1"/>
+                    <path d="M45 65 C55 75, 65 55, 75 65" fill="none" stroke="#4E342E" stroke-width="1"/>
+                </svg>`,
+                category: "umkm",
+                description: "Batik tulis premium dengan motif eksklusif. Dibuat oleh pengrajin batik berpengalaman menggunakan bahan sutra berkualitas tinggi.",
+                features: ["Bahan sutra", "Pewarna alami", "Motif eksklusif", "Proses tradisional", "Sertifikat keaslian"],
+                stock: 10
+            },
+            {
+                id: 9,
+                name: "Ruko 3 Lantai Premium",
+                price: 250000000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#e3f2fd"/>
+                    <rect x="20" y="20" width="60" height="60" fill="#EEEEEE" stroke="#757575" stroke-width="2"/>
+                    <line x1="20" y1="40" x2="80" y2="40" stroke="#757575" stroke-width="1"/>
+                    <line x1="20" y1="60" x2="80" y2="60" stroke="#757575" stroke-width="1"/>
+                    <rect x="30" y="25" width="10" height="10" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="60" y="25" width="10" height="10" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="30" y="45" width="10" height="10" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="60" y="45" width="10" height="10" fill="#90CAF9" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="45" y="65" width="10" height="15" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+                </svg>`,
+                category: "ruko",
+                description: "Ruko 3 lantai premium dengan desain modern dan lokasi strategis. Cocok untuk bisnis premium atau kantor representatif.",
+                features: ["Luas bangunan 300m²", "Luas tanah 150m²", "3 lantai", "Listrik 5500 watt", "Parkir luas", "Sertifikat SHM"],
+                stock: 2
+            },
+            {
+                id: 10,
+                name: "Rumah Dinas Type 70",
+                price: 750000,
+                image: `<svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full object-cover" viewBox="0 0 100 100" fill="none">
+                    <rect width="100" height="100" fill="#e8f5e9"/>
+                    <rect x="20" y="40" width="60" height="40" fill="#EEEEEE" stroke="#757575" stroke-width="2"/>
+                    <path d="M15 40 L50 15 L85 40" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
+                    <rect x="30" y="50" width="10" height="10" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="60" y="50" width="10" height="10" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="30" y="65" width="10" height="15" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <rect x="45" y="60" width="10" height="20" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+                    <rect x="15" y="80" width="70" height="5" fill="#8D6E63"/>
+                    <path d="M70 40 L70 30 L80 30 L80 40" fill="#F44336" stroke="#B71C1C" stroke-width="1"/>
+                </svg>`,
+                category: "rumah-dinas",
+                description: "Rumah dinas type 70 dengan desain modern dan nyaman. Dilengkapi dengan berbagai fasilitas premium untuk kenyamanan penghuni.",
+                features: ["Luas bangunan 70m²", "3 kamar tidur", "2 kamar mandi", "Ruang tamu", "Ruang keluarga", "Dapur", "Carport"],
+                stock: 3
+            }
+        ];
+
+        // Function to format price in IDR
+        function formatPrice(price) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price);
+        }
+
+        // Function to render products
+        function renderProducts(productsToRender) {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+
+            if (productsToRender.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">Tidak ada produk yang ditemukan</div>';
+                return;
+            }
+
+            productsToRender.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg';
+                productCard.innerHTML = `
+                    <div class="h-48 bg-gray-100">
+                        ${product.image}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">${product.name}</h3>
+                        <p class="text-indigo-600 font-bold mt-1">${formatPrice(product.price)}</p>
+                        <div class="flex items-center mt-2">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full">${product.category}</span>
+                            <span class="ml-2 text-sm text-gray-500">Stok: ${product.stock}</span>
+                        </div>
+                        <button class="mt-3 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors" onclick="showProductDetail(${product.id})">
+                            Lihat Detail
+                        </button>
+                    </div>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+
+        // Function to show product detail
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('product-modal');
+            const modalContent = document.getElementById('modal-content');
+
+            modalContent.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <h2 class="text-2xl font-bold text-gray-800">${product.name}</h2>
+                    <button class="text-gray-500 hover:text-gray-700" onclick="closeModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="h-64 bg-gray-100 rounded-lg overflow-hidden">
+                        ${product.image}
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-indigo-600 mb-4">${formatPrice(product.price)}</p>
+                        <div class="bg-indigo-100 text-indigo-800 inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            ${product.category}
+                        </div>
+                        <p class="text-gray-700 mb-4">${product.description}</p>
+                        <div class="mb-4">
+                            <h3 class="font-semibold text-gray-800 mb-2">Fitur:</h3>
+                            <ul class="list-disc pl-5 text-gray-600">
+                                ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <span class="text-gray-700 font-medium">Stok:</span>
+                            <span class="ml-2 ${product.stock > 5 ? 'text-green-600' : 'text-orange-600'}">${product.stock} tersedia</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                                Beli Sekarang
+                            </button>
+                            <button class="flex-1 border border-indigo-600 text-indigo-600 py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors">
+                                Tambah ke Keranjang
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        // Function to close modal
+        function closeModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+        }
+
+        // Function to filter products by category
+        function filterProducts(category) {
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                const filteredProducts = products.filter(product => product.category === category);
+                renderProducts(filteredProducts);
+            }
+
+            // Update active category button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Add event listeners to category buttons
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                filterProducts(button.dataset.category);
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('product-modal').addEventListener('click', function (event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize with all products
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products);
+        });
+
+        // Make showProductDetail and closeModal available globally
+        window.showProductDetail = showProductDetail;
+        window.closeModal = closeModal;
+
+</script>
     <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9461869ea631dfe3',t:'MTc0ODMwNzEwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
 </body>
 
