@@ -1,23 +1,647 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Centered Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nur Islami</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .arabic {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 33.33%;
+            height: 100%;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+        .nav-item.active {
+            color: #10b981;
+        }
+        .nav-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+        .nav-text {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .header {
+            padding: 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        .quote-card, .doa-card, .story-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .quote-card {
+            background: linear-gradient(135deg, #f0fdfa, #d1fae5);
+            border-left: 4px solid #10b981;
+        }
+        .doa-card {
+            border-bottom: 1px solid #e2e8f0;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+        .story-card {
+            border-bottom: 1px solid #e2e8f0;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+        }
+        .share-btn {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            background-color: #10b981;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
+        }
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            top: 20px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .story-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin-right: 15px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1.5rem;
+        }
+        .search-bar {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            outline: none;
+            margin-left: 10px;
+        }
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .detail-container {
+            padding: 20px;
+        }
+        .detail-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+        .detail-subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        .detail-content {
+            line-height: 1.8;
+        }
+        .arabic-text {
+            font-size: 1.5rem;
+            line-height: 2.2;
+            margin: 20px 0;
+            text-align: right;
+        }
+        .latin-text {
+            font-style: italic;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        .meaning-text {
+            margin-bottom: 20px;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .fade-in {
+            opacity: 1;
+        }
+        .fade-out {
+            opacity: 0;
+        }
+    </style>
 </head>
-
-<body class="h-screen bg-gray-100 flex items-center justify-center">
-
-    <div class="flex space-x-6">
-        <a href="v1.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
-            V1
-        </a>
-        <a href="v2.html" class="px-6 py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
-            V2
-        </a>
+<body>
+    <div class="app-container">
+        <!-- Toast notification -->
+        <div id="toast" class="toast">Berhasil dibagikan!</div>
+        
+        <!-- Content Area -->
+        <div id="content-area" class="content-area">
+            <!-- Content will be loaded here -->
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" data-page="quotes">
+                <div class="nav-icon">✨</div>
+                <div class="nav-text">Quotes</div>
+            </div>
+            <div class="nav-item" data-page="doa">
+                <div class="nav-icon">🤲</div>
+                <div class="nav-text">Doa</div>
+            </div>
+            <div class="nav-item" data-page="stories">
+                <div class="nav-icon">📚</div>
+                <div class="nav-text">Cerita</div>
+            </div>
+        </div>
     </div>
 
-</body>
+    <script>
+        // Data
+        const quotes = [
+            {
+                id: 1,
+                text: "Sesungguhnya sesudah kesulitan itu ada kemudahan.",
+                source: "QS. Al-Insyirah: 6"
+            },
+            {
+                id: 2,
+                text: "Barangsiapa yang mengerjakan kebaikan seberat dzarrahpun, niscaya dia akan melihat (balasan)nya.",
+                source: "QS. Az-Zalzalah: 7"
+            },
+            {
+                id: 3,
+                text: "Dan hanya kepada Tuhanmulah hendaknya kamu berharap.",
+                source: "QS. Al-Insyirah: 8"
+            },
+            {
+                id: 4,
+                text: "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.",
+                source: "QS. Al-Baqarah: 286"
+            },
+            {
+                id: 5,
+                text: "Maka nikmat Tuhanmu yang manakah yang kamu dustakan?",
+                source: "QS. Ar-Rahman: 13"
+            }
+        ];
 
+        const doas = [
+            {
+                id: 1,
+                title: "Doa Sebelum Makan",
+                arabic: "اَللّٰهُمَّ بَارِكْ لَنَا فِيْمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ",
+                latin: "Alloohumma baarik lanaa fiimaa rozaqtanaa waqinaa 'adzaa bannaar",
+                meaning: "Ya Allah, berkahilah kami dalam rezeki yang telah Engkau berikan kepada kami dan peliharalah kami dari siksa api neraka."
+            },
+            {
+                id: 2,
+                title: "Doa Sesudah Makan",
+                arabic: "اَلْحَمْدُ ِللهِ الَّذِىْ اَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِيْنَ",
+                latin: "Alhamdu lillaahil ladzii ath'amanaa wa saqoonaa wa ja'alanaa muslimiin",
+                meaning: "Segala puji bagi Allah yang telah memberi makan kami dan minuman kami, serta menjadikan kami sebagai orang-orang islam."
+            },
+            {
+                id: 3,
+                title: "Doa Sebelum Tidur",
+                arabic: "بِسْمِكَ اللّٰهُمَّ اَحْيَا وَاَمُوْتُ",
+                latin: "Bismika allahumma ahya wa amuut",
+                meaning: "Dengan menyebut nama-Mu ya Allah, aku hidup dan aku mati."
+            },
+            {
+                id: 4,
+                title: "Doa Bangun Tidur",
+                arabic: "اَلْحَمْدُ ِللهِ الَّذِىْ اَحْيَانَا بَعْدَمَآ اَمَاتَنَا وَاِلَيْهِ النُّشُوْرُ",
+                latin: "Alhamdu lillahil ladzii ahyaanaa ba'da maa amaatanaa wa ilaihin nusyuur",
+                meaning: "Segala puji bagi Allah yang telah menghidupkan kami sesudah kami mati (membangunkan dari tidur) dan hanya kepada-Nya kami dikembalikan."
+            },
+            {
+                id: 5,
+                title: "Doa Masuk Masjid",
+                arabic: "اَللّٰهُمَّ افْتَحْ لِيْ اَبْوَابَ رَحْمَتِكَ",
+                latin: "Allahummaf tahlii abwaaba rohmatik",
+                meaning: "Ya Allah, bukalah untukku pintu-pintu rahmat-Mu."
+            }
+        ];
+
+        const stories = [
+            {
+                id: 1,
+                title: "Kisah Sahabat yang Dermawan",
+                preview: "Kisah tentang sahabat Nabi yang rela memberikan seluruh hartanya...",
+                content: "Abu Bakar Ash-Shiddiq adalah sahabat Nabi Muhammad SAW yang terkenal dengan kedermawanannya. Suatu ketika, Rasulullah SAW meminta para sahabat untuk menyumbangkan harta mereka untuk persiapan perang. Abu Bakar kemudian membawa seluruh hartanya dan menyerahkannya kepada Rasulullah.\n\nRasulullah bertanya, \"Apa yang kau tinggalkan untuk keluargamu, wahai Abu Bakar?\"\n\nAbu Bakar menjawab, \"Saya meninggalkan Allah dan Rasul-Nya untuk mereka.\"\n\nKisah ini menunjukkan keimanan dan kepercayaan Abu Bakar yang luar biasa kepada Allah SWT. Ia yakin bahwa Allah akan selalu mencukupi kebutuhan keluarganya selama ia membantu agama Allah."
+            },
+            {
+                id: 2,
+                title: "Kejujuran Seorang Pedagang",
+                preview: "Kisah tentang pedagang yang tetap jujur meski dalam kesulitan...",
+                content: "Dahulu kala, ada seorang pedagang muslim yang sangat jujur dalam berdagang. Ia selalu menjelaskan kelebihan dan kekurangan barang dagangannya dengan jujur kepada para pembeli.\n\nSuatu hari, seorang pembeli datang dan ingin membeli kain yang berkualitas tinggi. Pedagang itu memiliki kain yang terlihat bagus, namun ia tahu bahwa kain tersebut memiliki cacat kecil di bagian yang tidak terlihat.\n\nMeskipun pembeli tidak akan mengetahui cacat tersebut, pedagang tetap memberitahukannya dan menawarkan harga yang lebih rendah. Pembeli itu sangat terkesan dengan kejujurannya.\n\nTernyata pembeli tersebut adalah seorang saudagar kaya yang sedang mencari rekan bisnis yang jujur. Ia kemudian mengajak pedagang tersebut untuk bekerja sama dalam bisnis yang lebih besar, yang membawa keberkahan dan kesuksesan bagi keduanya.\n\nKisah ini mengajarkan bahwa kejujuran akan selalu membawa keberkahan, meskipun terlihat merugikan pada awalnya."
+            },
+            {
+                id: 3,
+                title: "Kesabaran Nabi Ayyub",
+                preview: "Kisah tentang ujian dan kesabaran luar biasa Nabi Ayyub AS...",
+                content: "Nabi Ayyub AS dikenal sebagai nabi yang memiliki kesabaran luar biasa. Beliau pernah menjadi orang yang sangat kaya dan memiliki banyak ternak, tanah yang luas, serta keluarga yang besar.\n\nNamun Allah SWT menguji keimanannya dengan berbagai cobaan. Hartanya habis, anak-anaknya meninggal dunia, dan tubuhnya ditimpa penyakit yang sangat parah selama bertahun-tahun.\n\nMeskipun menghadapi ujian yang begitu berat, Nabi Ayyub tetap sabar dan tidak pernah berhenti bersyukur serta beribadah kepada Allah SWT. Beliau selalu berkata, \"Sesungguhnya Allah yang memberikan dan Allah pula yang mengambil, segala puji bagi Allah.\"\n\nSetelah bertahun-tahun diuji, Allah SWT akhirnya mengabulkan doa Nabi Ayyub dan menyembuhkan penyakitnya. Allah juga mengembalikan keluarga dan hartanya bahkan lebih banyak dari sebelumnya.\n\nKisah Nabi Ayyub mengajarkan kita tentang kekuatan kesabaran dan ketabahan dalam menghadapi ujian hidup, serta keyakinan bahwa setelah kesulitan pasti ada kemudahan."
+            },
+            {
+                id: 4,
+                title: "Kebaikan kepada Tetangga",
+                preview: "Kisah tentang pentingnya berbuat baik kepada tetangga...",
+                content: "Ada seorang laki-laki yang selalu berbuat jahat kepada tetangganya yang seorang muslim. Setiap hari, ia selalu membuang sampah di depan pintu rumah tetangganya tersebut.\n\nTetangga muslim itu tidak pernah marah atau membalas perbuatan buruk tersebut. Ia hanya membersihkan sampah itu setiap pagi tanpa mengeluh.\n\nSuatu hari, tetangga muslim itu tidak menemukan sampah di depan pintunya. Ia menjadi khawatir dan pergi mengunjungi tetangganya yang suka membuang sampah itu. Ternyata tetangganya sedang sakit.\n\nTanpa rasa dendam, tetangga muslim itu merawat dan membantu tetangganya yang sakit. Tetangganya sangat terkejut dan bertanya, \"Mengapa kamu begitu baik kepadaku padahal aku selalu berbuat jahat kepadamu?\"\n\nTetangga muslim itu menjawab, \"Islam mengajarkan kami untuk berbuat baik kepada semua orang, termasuk kepada mereka yang berbuat buruk kepada kami.\"\n\nTersentuh oleh kebaikan dan akhlak mulia tetangganya, orang itu akhirnya memeluk Islam dan menjadi seorang muslim yang baik.\n\nKisah ini mengajarkan kita tentang pentingnya berbuat baik kepada tetangga dan membalas keburukan dengan kebaikan."
+            },
+            {
+                id: 5,
+                title: "Keutamaan Membaca Al-Qur'an",
+                preview: "Kisah tentang seorang pemuda yang berubah karena Al-Qur'an...",
+                content: "Di sebuah desa kecil, hiduplah seorang pemuda yang dikenal nakal dan sering membuat masalah. Orang tuanya sangat sedih dengan perilakunya, namun tidak tahu bagaimana mengubahnya.\n\nSuatu hari, seorang guru Al-Qur'an datang ke desa tersebut dan membuka kelas mengaji. Karena dipaksa oleh orang tuanya, pemuda itu akhirnya ikut belajar membaca Al-Qur'an meskipun dengan berat hati.\n\nPada awalnya, ia hanya datang untuk menyenangkan hati orang tuanya. Namun seiring waktu, hatinya mulai tersentuh oleh keindahan ayat-ayat Al-Qur'an. Ia mulai rajin belajar dan memahami makna ayat-ayat yang dibacanya.\n\nPerlahan-lahan, perilakunya berubah. Ia menjadi lebih tenang, hormat kepada orang tua, dan mulai meninggalkan kebiasaan buruknya. Orang-orang di desa heran melihat perubahan drastis pada dirinya.\n\nKetika ditanya apa yang membuatnya berubah, pemuda itu menjawab, \"Al-Qur'an telah membuka hatiku. Setiap kali aku membacanya, aku merasa damai dan tenang. Ayat-ayatnya memberiku petunjuk tentang bagaimana seharusnya aku hidup.\"\n\nPemuda itu kemudian menjadi guru Al-Qur'an dan membantu banyak orang lain untuk menemukan kedamaian melalui kitab suci ini.\n\nKisah ini menunjukkan kekuatan Al-Qur'an dalam mengubah hati dan kehidupan seseorang ketika dibaca dan dipahami dengan sungguh-sungguh."
+            }
+        ];
+
+        // App State
+        let currentPage = 'quotes';
+        let currentView = 'list';
+        let currentItem = null;
+
+        // Functions
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('fade-in');
+            
+            setTimeout(() => {
+                toast.classList.remove('fade-in');
+                toast.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    toast.classList.remove('fade-out');
+                }, 300);
+            }, 2000);
+        }
+
+        function shareContent(text) {
+            if (navigator.share) {
+                navigator.share({
+                    text: text
+                })
+                .then(() => showToast('Berhasil dibagikan!'))
+                .catch(() => showToast('Pembagian dibatalkan'));
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(text)
+                    .then(() => showToast('Teks disalin ke clipboard!'))
+                    .catch(() => showToast('Gagal menyalin teks'));
+            }
+        }
+
+        function renderQuotesList() {
+            const contentArea = document.getElementById('content-area');
+            let html = `
+                <div class="header">
+                    <h1 class="text-2xl font-bold">Quotes Islami</h1>
+                    <div class="search-bar">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" placeholder="Cari quotes..." id="search-quotes">
+                    </div>
+                </div>
+                <div class="py-4">
+            `;
+
+            quotes.forEach(quote => {
+                html += `
+                    <div class="quote-card">
+                        <p class="text-lg font-medium">"${quote.text}"</p>
+                        <p class="text-sm text-gray-600 mt-2">— ${quote.source}</p>
+                        <div class="share-btn" onclick="shareContent('${quote.text} — ${quote.source}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                            </svg>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            contentArea.innerHTML = html;
+
+            // Add search functionality
+            document.getElementById('search-quotes').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const quoteCards = document.querySelectorAll('.quote-card');
+                
+                quoteCards.forEach(card => {
+                    const quoteText = card.querySelector('p:first-child').textContent.toLowerCase();
+                    const quoteSource = card.querySelector('p:nth-child(2)').textContent.toLowerCase();
+                    
+                    if (quoteText.includes(searchTerm) || quoteSource.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function renderDoaList() {
+            const contentArea = document.getElementById('content-area');
+            let html = `
+                <div class="header">
+                    <h1 class="text-2xl font-bold">Doa Harian</h1>
+                    <div class="search-bar">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" placeholder="Cari doa..." id="search-doa">
+                    </div>
+                </div>
+                <div>
+            `;
+
+            doas.forEach(doa => {
+                html += `
+                    <div class="doa-card" onclick="showDoaDetail(${doa.id})">
+                        <h3 class="text-lg font-medium">${doa.title}</h3>
+                        <p class="text-sm text-gray-500 mt-1">${doa.arabic.substring(0, 20)}...</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-emerald-600">Baca selengkapnya</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            contentArea.innerHTML = html;
+
+            // Add search functionality
+            document.getElementById('search-doa').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const doaCards = document.querySelectorAll('.doa-card');
+                
+                doaCards.forEach(card => {
+                    const doaTitle = card.querySelector('h3').textContent.toLowerCase();
+                    
+                    if (doaTitle.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function showDoaDetail(id) {
+            currentView = 'detail';
+            currentItem = doas.find(doa => doa.id === id);
+            
+            const contentArea = document.getElementById('content-area');
+            let html = `
+                <div class="header">
+                    <div class="back-btn" onclick="renderDoaList()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        <span class="ml-1">Kembali</span>
+                    </div>
+                    <h1 class="text-xl font-bold">${currentItem.title}</h1>
+                </div>
+                <div class="detail-container">
+                    <div class="arabic-text arabic">${currentItem.arabic}</div>
+                    <div class="latin-text">${currentItem.latin}</div>
+                    <div class="meaning-text">
+                        <strong>Artinya:</strong><br>
+                        "${currentItem.meaning}"
+                    </div>
+                    <button class="bg-emerald-600 text-white px-4 py-2 rounded-lg flex items-center justify-center w-full" 
+                            onclick="shareContent('${currentItem.title}\\n\\n${currentItem.arabic}\\n\\n${currentItem.latin}\\n\\nArtinya: ${currentItem.meaning}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        Bagikan Doa
+                    </button>
+                </div>
+            `;
+            
+            contentArea.innerHTML = html;
+        }
+
+        function renderStoriesList() {
+            const contentArea = document.getElementById('content-area');
+            let html = `
+                <div class="header">
+                    <h1 class="text-2xl font-bold">Cerita Islami</h1>
+                    <div class="search-bar">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" placeholder="Cari cerita..." id="search-stories">
+                    </div>
+                </div>
+                <div>
+            `;
+
+            stories.forEach(story => {
+                html += `
+                    <div class="story-card" onclick="showStoryDetail(${story.id})">
+                        <div class="story-image">📖</div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-medium">${story.title}</h3>
+                            <p class="text-sm text-gray-500 mt-1">${story.preview}</p>
+                            <div class="flex justify-end items-center mt-2">
+                                <span class="text-xs text-emerald-600">Baca selengkapnya</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            contentArea.innerHTML = html;
+
+            // Add search functionality
+            document.getElementById('search-stories').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const storyCards = document.querySelectorAll('.story-card');
+                
+                storyCards.forEach(card => {
+                    const storyTitle = card.querySelector('h3').textContent.toLowerCase();
+                    const storyPreview = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (storyTitle.includes(searchTerm) || storyPreview.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function showStoryDetail(id) {
+            currentView = 'detail';
+            currentItem = stories.find(story => story.id === id);
+            
+            const contentArea = document.getElementById('content-area');
+            let html = `
+                <div class="header">
+                    <div class="back-btn" onclick="renderStoriesList()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        <span class="ml-1">Kembali</span>
+                    </div>
+                    <h1 class="text-xl font-bold">${currentItem.title}</h1>
+                </div>
+                <div class="detail-container">
+                    <div class="detail-content">
+                        ${currentItem.content.split('\n\n').map(paragraph => `<p class="mb-4">${paragraph}</p>`).join('')}
+                    </div>
+                    <button class="bg-emerald-600 text-white px-4 py-2 rounded-lg flex items-center justify-center w-full mt-6" 
+                            onclick="shareContent('${currentItem.title}\\n\\n${currentItem.content.replace(/\n\n/g, ' ')}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        Bagikan Cerita
+                    </button>
+                </div>
+            `;
+            
+            contentArea.innerHTML = html;
+        }
+
+        function renderPage(page) {
+            currentPage = page;
+            currentView = 'list';
+            
+            switch(page) {
+                case 'quotes':
+                    renderQuotesList();
+                    break;
+                case 'doa':
+                    renderDoaList();
+                    break;
+                case 'stories':
+                    renderStoriesList();
+                    break;
+            }
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.dataset.page === page) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPage('quotes');
+            
+            // Add event listeners to nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    renderPage(this.dataset.page);
+                });
+            });
+        });
+
+        // Make functions available globally
+        window.showDoaDetail = showDoaDetail;
+        window.showStoryDetail = showStoryDetail;
+        window.renderDoaList = renderDoaList;
+        window.renderStoriesList = renderStoriesList;
+        window.shareContent = shareContent;
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'957b914d439d4100',t:'MTc1MTI2NDUyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
